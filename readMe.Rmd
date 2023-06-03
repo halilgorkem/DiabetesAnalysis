@@ -1,0 +1,69 @@
+---
+title: "Lojistik Regresyon ile Destek Vektör Makinelerinin Karşılaştırılması"
+author: "Halil Görkem Herek"
+---
+## Lojistik Regresyon
+Lojistik regresyon, sınıflandırma problemlerinde kullanılan bir istatistiksel modeldir. Lojistik regresyon, bağımsız değişkenlerin verildiği durumlarda bir bağımlı değişkenin iki sınıfa ait olma olasılığını tahmin etmek için kullanılır. Örneğin, hasta/hasta olmayan, evet/hayır gibi iki sınıfı olan problemlerde sıklıkla tercih edilir. Lojistik regresyon çıktı olarak 0 ile 1 arasında olasılık değerleri verir ve bu değerlerin üzerine belirli bir eşik değeri uygulanarak sınıflandırma yapılabilir.
+
+## Destek Vektör Makineleri (SVM)
+Destek vektör makineleri, hem sınıflandırma hem de regresyon problemleri için kullanılan güçlü bir makine öğrenme algoritmasıdır. SVM, veri noktalarını sınıflandırmak veya bir çizgiye uygun bir şekilde oturtmak için kullanılır. SVM, verileri yüksek boyutlu uzayda temsil eder ve bu uzayda sınıflandırma yapabilmek için optimum bir hiperdüzlem bulmaya çalışır. Sınıflar arasındaki ayrımı maksimuma çıkarmak için destek vektörleri kullanır.
+
+Şimdi, R programı kullanarak lojistik regresyon ve destek vektör makinelerini bir veri seti üzerinde karşılaştırma yapalım.
+
+Bunun için kaggle'dan elde ettiğimiz Pima Kızılderilileri Diyabet Veritabanını kullanacağız.
+
+Bu veri kümesi aslen Ulusal Diyabet ve Sindirim ve Böbrek Hastalıkları Enstitüsü'ndendir. Veri setinin amacı, veri setinde yer alan belirli teşhis ölçümlerine dayalı olarak bir hastanın diyabet hastası olup olmadığını teşhis amaçlı olarak tahmin etmektir. Buradaki tüm hastalar en az 21 yaşında Pima Kızılderili mirasına sahip kadınlardır.
+Veri kümesi, 9 sütundan ve 768 gözlemden oluşmaktadır. Veri setini anlamak için sütunlarımızı tanımlayalım.
+
+- Pregnancies : Hamile kalma sayısı
+
+- Glucose : Oral glukoz tolerans testinde 2 saatlik plazma glukoz konsantrasyonu
+
+- BloodPressure : Diyastolik kan basıncı (mm Hg)
+
+- SkinThickness : Triceps deri kıvrım kalınlığı (mm)
+
+- Insulin : 2 saatlik serum insülini (mu U/ml)
+
+- BMI : Vücut kitle indeksi 
+
+- DiabetesPedigreeFunction : Diyabet soy ağacı işlevi
+
+- Age : Yaş
+
+- Outcome : Sınıf değişkeni (0 veya 1) 768'den 268'i 1, diğerleri 0
+
+
+Şimdi verimizi R'ye aktaralım ve ilk birkaç gözleme bakalım.
+
+
+```{r}
+diabetes_data <- read.csv("diabetes.csv")
+head(diabetes_data)
+```
+
+Veri setimizin yapısal özelliklerine bakalım.
+
+```{r}
+str(diabetes_data)
+```
+
+Veri setimizin özet istatistiklerini görüntüleyelim.
+
+```{r}
+summary(diabetes_data)
+```
+
+Makine öğrenimi modellerini eğitmek ve performansını değerlendirmek için eğitim ve test veri setleri oluşturalım.
+
+```{r}
+set.seed(123)
+train_indices <- sample(1:nrow(diabetes_data), 0.7 * nrow(diabetes_data))
+train_data <- diabetes_data[train_indices, ]
+test_data <- diabetes_data[-train_indices, ]
+```
+
+
+
+
+
