@@ -12,6 +12,15 @@ train_indices <- sample(1:nrow(diabetes_data), 0.7 * nrow(diabetes_data))
 train_data <- diabetes_data[train_indices, ]
 test_data <- diabetes_data[-train_indices, ]
 
+# Korelasyon matrisi
+cor_matrix <- cor(train_data[, -9])
+corrplot(cor_matrix, method = "color", type = "upper", tl.cex = 0.7, tl.col = "black")
+
+# Şeker hastası ve sağlıklı bireylerin dağılımı
+ggplot(train_data, aes(x = Outcome)) +
+  geom_histogram(binwidth = 0.5, fill = "skyblue", color = "black") +
+  labs(x = "Outcome", y = "Count", title = "Histogram - Outcome")
+
 library(glmnet)
 
 # Bağımlı değişkeni ve bağımsız değişkenleri ayırma
@@ -53,3 +62,5 @@ auc_svm <- auc(roc_svm)
 
 print(paste("Logistic Regression AUC:", auc_logit))
 print(paste("Support Vector Machines AUC:", auc_svm))
+
+

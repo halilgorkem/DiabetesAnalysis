@@ -63,6 +63,26 @@ train_data <- diabetes_data[train_indices, ]
 test_data <- diabetes_data[-train_indices, ]
 ```
 
+Bağımsız değişkenler arasındaki korelasyonu görmek için bir korelasyon matrisi çizdirelim. 
+
+```{r}
+library(corrplot)
+cor_matrix <- cor(train_data[, -9])
+corrplot(cor_matrix, method = "color", type = "upper", tl.cex = 0.7, tl.col = "black")
+```
+
+Grafikteki karelerin renkleri, değişkenler arasındaki korelasyonun gücünü temsil etmektedir. Koyu mavi renk negatif korelasyonu, kırmızı renk ise pozitif korelasyonu ifade etmektedir. Renk skalasında beyaz renk ise korelasyonun zayıf veya yok olduğunu göstermektedir. Pozitif korelasyon, iki değişken arasında birlikte artma veya birlikte azalma eğilimini ifade eder. Negatif korelasyon, iki değişken arasında birlikte ters yönlü hareket etme eğilimini ifade eder.
+
+Veri setimizdeki şeker hastası ve sağlıklı bireylerin dağılımına bakalım.
+
+```{r}
+library(ggplot2)
+ggplot(train_data, aes(x = Outcome)) +
+  geom_histogram(binwidth = 0.5, fill = "skyblue", color = "black") +
+  labs(x = "Outcome", y = "Count", title = "Histogram - Outcome")
+```
+
+
 Lojistik Regresyon modelimizi oluşturalım. Burada 'glmnet' paketini kullanacağız. glmnet paketi, istatistiksel modelleme ve makine öğrenimi alanında sıkça kullanılan bir araçtır. Hem regresyon hem de sınıflandırma problemleri için kullanılabilir ve değişken seçimi ve regülarizasyon gibi önemli konuları ele alırken, modelin performansını artırmaya yardımcı olur.
 
 ```{r}
