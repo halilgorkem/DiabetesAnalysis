@@ -63,6 +63,30 @@ train_data <- diabetes_data[train_indices, ]
 test_data <- diabetes_data[-train_indices, ]
 ```
 
+Bağımsız değişkenler arasındaki korelasyonu görmek için bir korelasyon matrisi çizdirelim. 
+
+```{r}
+library(corrplot)
+cor_matrix <- cor(train_data[, -9])
+corrplot(cor_matrix, method = "color", type = "upper", tl.cex = 0.7, tl.col = "black")
+```
+![corrplot](corrplot.png)
+
+
+Grafikteki karelerin renkleri, değişkenler arasındaki korelasyonun gücünü temsil etmektedir. Koyu mavi renk negatif korelasyonu, kırmızı renk ise pozitif korelasyonu ifade etmektedir. Renk skalasında beyaz renk ise korelasyonun zayıf veya yok olduğunu göstermektedir. Pozitif korelasyon, iki değişken arasında birlikte artma veya birlikte azalma eğilimini ifade eder. Negatif korelasyon, iki değişken arasında birlikte ters yönlü hareket etme eğilimini ifade eder.
+
+Veri setimizdeki şeker hastası ve sağlıklı bireylerin dağılımına bakalım.
+
+```{r}
+library(ggplot2)
+ggplot(train_data, aes(x = Outcome)) +
+  geom_histogram(binwidth = 0.5, fill = "skyblue", color = "black") +
+  labs(x = "Outcome", y = "Count", title = "Histogram - Outcome")
+```
+![hist](histplot.png)
+
+
+
 Lojistik Regresyon modelimizi oluşturalım. Burada 'glmnet' paketini kullanacağız. glmnet paketi, istatistiksel modelleme ve makine öğrenimi alanında sıkça kullanılan bir araçtır. Hem regresyon hem de sınıflandırma problemleri için kullanılabilir ve değişken seçimi ve regülarizasyon gibi önemli konuları ele alırken, modelin performansını artırmaya yardımcı olur.
 
 ```{r}
@@ -116,6 +140,8 @@ plot(roc_logit, col = "blue", main = "ROC Curve Comparison")
 lines(roc_svm, col = "red")
 legend("bottomright", legend = c("Logistic Regression", "Support Vector Machines"), col = c("blue", "red"), lty = 1)
 ```
+![roc](roc.png)
+
 
 Son olarak AUC değerlerine göz atalım. AUC değeri, ROC eğrisinin altında kalan alanı ifade eder ve bir sınıflandırma modelinin performansını ölçmek için kullanılır.
 
