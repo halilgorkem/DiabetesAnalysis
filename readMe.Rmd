@@ -1,6 +1,9 @@
 ---
 title: "Lojistik Regresyon ile Destek Vektör Makinelerinin Karşılaştırılması"
 author: "Halil Görkem Herek"
+output:
+  html_document:
+    theme: darkly
 ---
 ## Lojistik Regresyon
 Lojistik regresyon, sınıflandırma problemlerinde kullanılan bir istatistiksel modeldir. Lojistik regresyon, bağımsız değişkenlerin verildiği durumlarda bir bağımlı değişkenin iki sınıfa ait olma olasılığını tahmin etmek için kullanılır. Örneğin, hasta/hasta olmayan, evet/hayır gibi iki sınıfı olan problemlerde sıklıkla tercih edilir. Lojistik regresyon çıktı olarak 0 ile 1 arasında olasılık değerleri verir ve bu değerlerin üzerine belirli bir eşik değeri uygulanarak sınıflandırma yapılabilir.
